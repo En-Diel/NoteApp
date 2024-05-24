@@ -7,6 +7,7 @@ import com.endiel.noteapp.feature_note.domain.util.OrderType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
+// This class contains a function that gets all the notes from our database
 class GetNotes {
     // TODO: Instead of making the clas a function,
     //  let me go with the normal function inside the class here and see what happens
