@@ -3,10 +3,10 @@ package com.endiel.noteapp.feature_note.domain.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.endiel.noteapp.ui.theme.Blue
-import com.endiel.noteapp.ui.theme.DarkBlue
+import com.endiel.noteapp.ui.theme.Green
 import com.endiel.noteapp.ui.theme.Orange
 import com.endiel.noteapp.ui.theme.Pink
-import com.endiel.noteapp.ui.theme.Violet
+import com.endiel.noteapp.ui.theme.Red
 
 @Entity
 data class Note(
@@ -22,6 +22,6 @@ data class Note(
     // of its class are created and without any reference to any object
     companion object {
         // This is immutable list(can't be edited)
-        val noteColors = listOf(Violet, Blue, Pink, DarkBlue, Orange)
+        val noteColors = listOf(Red, Blue, Pink, Green, Orange)
     }
 }
