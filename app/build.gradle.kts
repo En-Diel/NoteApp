@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     // Kotlin Symbol Processing plugin alternative to kapt
     id("com.google.devtools.ksp")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -114,4 +115,9 @@ dependencies {
     androidTestImplementation ("com.squareup.okhttp3:mockwebserver:4.9.1")
     androidTestImplementation ("io.mockk:mockk-android:1.10.5")
     androidTestImplementation ("androidx.test:runner:1.5.2")
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
