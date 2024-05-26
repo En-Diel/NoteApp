@@ -16,10 +16,12 @@ data class Note(
     val color: Int,
     @PrimaryKey val id: Int? = null
 ) {
-    // A special object that is tied to a class, rather than an instance of a class
-    // It serves as a way to define static methods/properties of a class
-    // This is like a static member. Can be accessed before any objects
-    // of its class are created and without any reference to any object
+    /**
+     * A special object that is tied to a class, rather than an instance of a class
+     * It serves as a way to define static methods/properties of a class
+     * This is like a static member. Can be accessed before any objects
+     * of its class are created and without any reference to any object
+     */
     companion object {
         // This is immutable list(can't be edited)
         val noteColors = listOf(Red, Blue, Pink, Green, Orange)

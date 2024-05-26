@@ -5,10 +5,8 @@ import com.endiel.noteapp.feature_note.domain.model.Note
 import com.endiel.noteapp.feature_note.domain.repository.NoteRepository
 
 // This class contains a function that delete a note
-class DeleteNote {
-    // TODO: Instead of making the clas a function,
-    //  let me go with the normal function inside the class here and see what happens
-    suspend fun deleteNote(repository: NoteRepository, note: Note) {
+class DeleteNote(private val repository: NoteRepository) {
+    suspend operator fun invoke(note: Note) {
         repository.deleteNote(note)
     }
 }

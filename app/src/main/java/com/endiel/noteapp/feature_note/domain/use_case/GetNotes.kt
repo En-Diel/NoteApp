@@ -8,14 +8,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 // This class contains a function that gets all the notes from our database
-class GetNotes {
-    // TODO: Instead of making the clas a function,
-    //  let me go with the normal function inside the class here and see what happens
-    fun getNotes(
-        repository: NoteRepository,
-        // I'll order by date, ascending as default order
-        noteOrder: NoteOrder = NoteOrder.Date(OrderType.Ascending)
-    ): Flow<List<Note>> {
+class GetNotes(private val repository: NoteRepository) {
+    // This operator invoke enables us to use the class as a function
+    operator fun invoke(noteOrder: NoteOrder = NoteOrder.Date(OrderType.Ascending)): Flow<List<Note>> {
         return repository.getNotes().map { notes ->
             when(noteOrder.orderType) {
                 is OrderType.Ascending -> {

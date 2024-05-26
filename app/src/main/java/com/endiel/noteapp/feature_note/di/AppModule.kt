@@ -43,10 +43,10 @@ object AppModule  {
     //  in the UseCases objects below. I'll observe if the injection will work or not
     fun provideNoteUseCases(repository: NoteRepository): NoteUseCases {
         return NoteUseCases(
-            getNotes = GetNotes(),
-            getNote = GetNote(),
-            addNote = AddNote(),
-            deleteNote = DeleteNote()
+            getNotes = GetNotes(repository),
+            getNote = GetNote(repository),
+            addNote = AddNote(repository),
+            deleteNote = DeleteNote(repository)
         )
     }
 }

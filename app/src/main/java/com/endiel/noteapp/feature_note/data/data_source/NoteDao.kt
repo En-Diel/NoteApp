@@ -10,12 +10,14 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
-    // All fun must be suspend, except for getNotes coz it returns flow (and flow is
-    // a coroutine function already)
+    /**
+     * All fun must be suspend, except for getNotes coz it returns flow (and flow is
+     * a coroutine function already)
+     */
     @Query("SELECT * FROM Note")
     fun getNotes(): Flow<List<Note>>
 
-    @Query("SELECT * FROM Note WHERE ID = id")
+    @Query("SELECT * FROM Note WHERE ID = :id")
     suspend fun getNoteById(id: Int): Note?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
