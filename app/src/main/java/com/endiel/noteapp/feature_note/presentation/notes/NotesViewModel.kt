@@ -1,4 +1,4 @@
-package com.endiel.noteapp.feature_note.presentation.notes.components
+package com.endiel.noteapp.feature_note.presentation.notes
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

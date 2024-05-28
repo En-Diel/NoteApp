@@ -1,4 +1,4 @@
-package com.endiel.noteapp.feature_note.presentation.notes.components
+package com.endiel.noteapp.feature_note.presentation.notes
 
 import com.endiel.noteapp.feature_note.domain.model.Note
 import com.endiel.noteapp.feature_note.domain.util.NoteOrder
