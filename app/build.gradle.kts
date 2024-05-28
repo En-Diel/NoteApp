@@ -24,6 +24,13 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        // I added this so that it will write out the schema to a "schemas" subfolder
+        // of the project folder
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {

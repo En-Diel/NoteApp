@@ -38,9 +38,6 @@ object AppModule  {
 
     @Provides
     @Singleton
-    // TODO: I omit the contractor modifier (repository: NoteRepository) here,
-    //  since I got some errors. And I'll not pass the repository as argument
-    //  in the UseCases objects below. I'll observe if the injection will work or not
     fun provideNoteUseCases(repository: NoteRepository): NoteUseCases {
         return NoteUseCases(
             getNotes = GetNotes(repository),
