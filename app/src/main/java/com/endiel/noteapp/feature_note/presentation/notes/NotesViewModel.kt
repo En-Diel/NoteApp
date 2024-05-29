@@ -22,7 +22,7 @@ class NotesViewModel @Inject constructor(
     // This state contains the values that our ui can observe
     // This is so that the ui can survive screen rotation
     private val _state = mutableStateOf(NotesState())
-    private val state: State<NotesState> = _state
+    val state: State<NotesState> = _state
     // Recently deleted note reference(null by default)
     private var recentlyDeletedNote: Note? = null
     // This init will load the notes before any variable is created in this class
