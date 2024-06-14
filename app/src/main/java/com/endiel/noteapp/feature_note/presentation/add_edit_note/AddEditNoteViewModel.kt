@@ -1,4 +1,4 @@
-package com.endiel.noteapp.feature_note.presentation.add_edit_note.components
+package com.endiel.noteapp.feature_note.presentation.add_edit_note
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
@@ -22,7 +22,7 @@ class AddEditNoteViewModel @Inject constructor(
     // This is a bundle that contains note id and many more stuffs
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
-    // Remember the state of the hint in title Fiels
+    // Remember the state of the hint in title Fields
     private val _noteTitle = mutableStateOf(NoteTextFieldState(hint = "Enter title..."))
     // To survive the screen rotation
     val noteTitle: State<NoteTextFieldState> = _noteTitle
@@ -30,17 +30,17 @@ class AddEditNoteViewModel @Inject constructor(
     // Remember the state of the hint in noteContent
     private val _noteContent = mutableStateOf(NoteTextFieldState(hint = "Enter some content..."))
     // To survive the screen rotation
-    private val noteContent: State<NoteTextFieldState> = _noteContent
+    val noteContent: State<NoteTextFieldState> = _noteContent
 
     // Remember the state of the color(color selected)
     private val _noteColor = mutableIntStateOf(Note.noteColors.random().toArgb())
     // To survive the screen rotation
-    private val noteColor: State<Int> = _noteColor
+    val noteColor: State<Int> = _noteColor
 
     // We use MutableSharedFlow when we have events that aren't tied to a particular state eg. one time events(snackBar etc.)
     // or if we need some advanced features like buffering, replaying etc.
     private val _eventFlow = MutableSharedFlow<UiEvent>()
-    private val eventFlow = _eventFlow.asSharedFlow()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     // Declare noteId value and initialize it to null
     private var currentNoteId: Int? = null
@@ -103,7 +103,7 @@ class AddEditNoteViewModel @Inject constructor(
                         noteUseCases.addNote(
                             Note(
                                 title = noteTitle.value.text,
-                                body = noteContent.value.text,
+                                content = noteContent.value.text,
                                 timeStamp = System.currentTimeMillis(),
                                 color = noteColor.value,
                                 id = currentNoteId
@@ -113,7 +113,7 @@ class AddEditNoteViewModel @Inject constructor(
                     }catch (e: InvalidNoteException) {
                         _eventFlow.emit(
                             UiEvent.ShowSnackBar(
-                                message = e.message?: "Couldn't save note"
+                                message = e.message ?: "Couldn't save note"
                             )
                         )
                     }

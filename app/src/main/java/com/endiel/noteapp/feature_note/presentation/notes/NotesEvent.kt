@@ -8,9 +8,9 @@ import com.endiel.noteapp.feature_note.domain.util.NoteOrder
  * Sealed class restrict inheritance/class hierarchy
  * used when the object have one of the types from limited set, but cannot have any other type
  */
-sealed class NotesEvents {
-    data class Order(val noteOrder: NoteOrder): NotesEvents()
-    data class Delete(val note: Note): NotesEvents()
-    data object Restore: NotesEvents()
-    data object ToggleOrderSection: NotesEvents()
+sealed class NotesEvent {
+    data class Order(val noteOrder: NoteOrder): NotesEvent()
+    data class DeleteNote(val note: Note): NotesEvent()
+    data object RestoreNote: NotesEvent()
+    data object ToggleOrderSection: NotesEvent()
 }

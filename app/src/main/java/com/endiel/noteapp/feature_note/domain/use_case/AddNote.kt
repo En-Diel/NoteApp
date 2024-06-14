@@ -13,7 +13,7 @@ class AddNote(private val repository: NoteRepository) {
         if (note.title.isBlank()) {
             throw InvalidNoteException("Title can't be empty")
         }
-        if (note.body.isBlank()) {
+        if (note.content.isBlank()) {
             throw InvalidNoteException("Body can't be empty")
         }
         repository.insertNote(note)

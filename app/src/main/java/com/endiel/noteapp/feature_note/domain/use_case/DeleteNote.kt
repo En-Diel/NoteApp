@@ -1,6 +1,5 @@
 package com.endiel.noteapp.feature_note.domain.use_case
 
-import com.endiel.noteapp.feature_note.data.data_source.NoteDao
 import com.endiel.noteapp.feature_note.domain.model.Note
 import com.endiel.noteapp.feature_note.domain.repository.NoteRepository
 

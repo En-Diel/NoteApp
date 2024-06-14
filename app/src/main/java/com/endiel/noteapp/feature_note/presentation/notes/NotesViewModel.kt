@@ -27,12 +27,12 @@ class NotesViewModel @Inject constructor(
     private var recentlyDeletedNote: Note? = null
     // This init will load the notes before any variable is created in this class
     init {
-        getNotes(NoteOrder.Date(OrderType.Ascending))
+        getNotes(NoteOrder.Date(OrderType.Descending))
     }
 
-    fun onEvent(event: NotesEvents) {
+    fun onEvent(event: NotesEvent) {
         when(event) {
-            is NotesEvents.Order -> {
+            is NotesEvent.Order -> {
                 // We check if the order changed When we
                 // click on a radio button that is already checked we don't wanna do nothing
                 // We compare classes because if we remove class
@@ -47,7 +47,7 @@ class NotesViewModel @Inject constructor(
                 }
                 getNotes(event.noteOrder)
             }
-            is NotesEvents.Delete -> {
+            is NotesEvent.DeleteNote -> {
                 // viewModelScope is tied to a viewModel's lifecycle which means
                 // any coroutine launched within the viewModel scope will automatically
                 // be cancelled when the asociated viewModel is destroyed
@@ -57,14 +57,14 @@ class NotesViewModel @Inject constructor(
                     recentlyDeletedNote = event.note
                 }
             }
-            is NotesEvents.Restore -> {
+            is NotesEvent.RestoreNote -> {
                 viewModelScope.launch {
                     noteUseCases.addNote(recentlyDeletedNote ?: return@launch)
                     // Set the recentDeletedNote to null to prevent restore/adding a note again
                     recentlyDeletedNote = null
                 }
             }
-            is NotesEvents.ToggleOrderSection -> {
+            is NotesEvent.ToggleOrderSection -> {
                 _state.value = state.value.copy(
                     isOrderSectionVisible = !state.value.isOrderSectionVisible
                 )

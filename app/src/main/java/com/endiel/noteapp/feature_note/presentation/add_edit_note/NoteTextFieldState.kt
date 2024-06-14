@@ -1,4 +1,4 @@
-package com.endiel.noteapp.feature_note.presentation.add_edit_note.components
+package com.endiel.noteapp.feature_note.presentation.add_edit_note
 
 /**
  * This class contains states of how the AddEditScreen will look like and or behave
