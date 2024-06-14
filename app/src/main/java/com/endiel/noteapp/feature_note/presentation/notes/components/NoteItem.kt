@@ -1,5 +1,8 @@
 package com.endiel.noteapp.feature_note.presentation.notes.components
 
+import android.icu.text.SimpleDateFormat
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -17,17 +19,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
+import androidx.compose.ui.unit.sp
 import com.endiel.noteapp.feature_note.domain.model.Note
-import com.endiel.noteapp.feature_note.presentation.notes.NotesViewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NoteItem(
     note: Note,
     modifier: Modifier = Modifier,
     onDeleteClick: () -> Unit
 ) {
+    val dateDay = SimpleDateFormat("dd").format(note.timeStamp)
+    val dateMonth = SimpleDateFormat("MM").format(note.timeStamp)
     Card(
         modifier = Modifier
             .padding(
@@ -37,32 +44,35 @@ fun NoteItem(
                 bottom = 8.dp
             )
     ) {
-        Row(modifier = modifier.background(color = Color(note.color)), Arrangement.SpaceBetween) {
+        Row(
+            modifier = modifier
+                .background(color = Color(note.color)),
+            Arrangement.SpaceBetween
+        ) {
             Column(
                 modifier = Modifier
                     .padding(16.dp)
-                    .background(Color.Blue)
                     .align(
                         alignment = Alignment.CenterVertically
                     )
             ) {
-                Text(text = "23")
-                Text(text = "October")
+                Text(text = "$dateDay")
+                Text(text = "$dateMonth")
             }
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
-                    .background(Color.Yellow)
+                    .weight(1f)
             ) {
-                Text(text = note.title)
-                Text(text = "Category")
-                Text(text = note.content)
+                Text(text = note.title, color = Color.Black, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                /*Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.inverseOnSurface)) {
+                    Text(text = "Category")
+                }*/
+                Text(text = note.content, color = Color.Black)
             }
             IconButton(
                 onClick = onDeleteClick,
                 modifier = Modifier
-                    .background(Color.Cyan)
-                    .align(alignment = Alignment.CenterVertically)
+                    .align(alignment = Alignment.Bottom)
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
