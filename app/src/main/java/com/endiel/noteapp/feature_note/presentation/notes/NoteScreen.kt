@@ -1,7 +1,8 @@
 package com.endiel.noteapp.feature_note.presentation.notes
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -20,16 +21,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Sort
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
@@ -44,17 +44,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.endiel.noteapp.feature_note.presentation.notes.components.NoteItem
 import com.endiel.noteapp.feature_note.presentation.notes.components.OrderSection
 import com.endiel.noteapp.feature_note.presentation.util.Screen
-import com.endiel.noteapp.ui.theme.NoteAppTheme
 import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -70,19 +68,17 @@ fun NoteScreen(
         SnackbarHostState()
     }
     Scaffold(
-        // TODO: I'll think abt implementing this topBar
-        /*
         topBar = {
             TopAppBar(
-                title = {
-                    Text(text = "Note App")
-                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary
-                )
+                ),
+                title = {
+                    Text(text = "Note App")
+                }
             )
-        },*/
+        },
         snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = {
             FloatingActionButton(
@@ -101,11 +97,11 @@ fun NoteScreen(
             }
         },
         floatingActionButtonPosition = FabPosition.Center
-    ) {
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(innerPadding)
         ) {
             Row(
                 modifier = Modifier
@@ -138,9 +134,12 @@ fun NoteScreen(
                 onOrderChange = { viewModel.onEvent(NotesEvent.Order(it)) }
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        LazyColumn(modifier = Modifier.fillMaxSize()) { ->
-            items(state.notes) {note ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            items(state.notes) { note ->
                 NoteItem(
                     note = note,
                     modifier = Modifier
@@ -165,7 +164,6 @@ fun NoteScreen(
                         }
                     }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }

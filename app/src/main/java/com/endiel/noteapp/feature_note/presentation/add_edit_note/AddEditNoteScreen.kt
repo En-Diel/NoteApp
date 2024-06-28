@@ -18,14 +18,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,8 +45,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.endiel.noteapp.feature_note.domain.model.Note
 import com.endiel.noteapp.feature_note.presentation.add_edit_note.components.TransparentHintTextField
-import com.endiel.noteapp.feature_note.presentation.notes.NotesViewModel
-import com.endiel.noteapp.feature_note.presentation.util.Screen
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -50,6 +53,7 @@ import kotlinx.coroutines.launch
 fun AddEditNoteScreen(
     navController: NavController,
     noteColor: Int,
+    navigateBack: () -> Unit,
     viewModel: AddEditNoteViewModel = hiltViewModel()
 ) {
 
@@ -81,7 +85,6 @@ fun AddEditNoteScreen(
     }
 
     Scaffold(
-        /**
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -90,10 +93,15 @@ fun AddEditNoteScreen(
                 ),
                 title = {
                     Text(text = "Note App")
+                },
+                navigationIcon = {
+                    IconButton(onClick = navigateBack) {
+                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Localized Description")
+                    }
                 }
             )
         },
-        */
+
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -107,11 +115,11 @@ fun AddEditNoteScreen(
             }
         },
         floatingActionButtonPosition = FabPosition.Center
-    ) {it
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(innerPadding)
         ) {
             Row(
                 modifier = Modifier
@@ -135,7 +143,8 @@ fun AddEditNoteScreen(
                             )
                             .clickable {
                                 scope.launch {
-                                    noteBackgroundAnimatable.animateTo(targetValue = Color(colorInt),
+                                    noteBackgroundAnimatable.animateTo(
+                                        targetValue = Color(colorInt),
                                         animationSpec = tween(
                                             durationMillis = 500
                                         )
